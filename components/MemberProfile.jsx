@@ -1,11 +1,15 @@
-import React from 'react'
+import { auth, currentUser, UserButton } from "@clerk/nextjs";
 
-function MemberProfile() {
+async function MemberProfile() {
+  const user = await currentUser();
+  const { userId } = auth();
+
   return (
-    <div>
-      member profile
+    <div className="px-4 flex items-center gap-2">
+      <UserButton afterSignOutURL="/" />
+      <p>{user.emailAddresses[0].emailAddress}</p>
     </div>
-  )
+  );
 }
 
-export default MemberProfile
+export default MemberProfile;
